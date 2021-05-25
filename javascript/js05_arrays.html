@@ -50,6 +50,11 @@
 
 		console.log("\n");
 
+		const func_arr = new Array(printIt, printItRec, printRec, by_num);
+		func_arr[0](func_arr);
+
+		console.log("\n");
+
 		a1.sort();
 		printIt(a1);
 		a2.sort();
@@ -69,6 +74,16 @@
 		printIt(a1);
 		a1.length = 20;
 		printIt(a1);
+
+		console.log("\n");
+
+		console.log(a1.length);
+		console.log(a1[30]);
+		console.log(a1.length);
+
+		if (a1[15] === undefined) {
+			console.log("Matched undefined!");
+		}
 
 		console.log("\n");
 		
@@ -104,7 +119,7 @@
 		const z = x;
 		printIt(x);
 		if (x == y) {
-			console.log("x == x");
+			console.log("x == y");
 		}
 		if (x == z) {
 			console.log("x == z");
