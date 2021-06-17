@@ -18,6 +18,49 @@
 	 * JavaScript. Note the CSS styling provided above.
 	 */
 	// Your code starts here
+	
+	function start()
+	{
+		//add eventListener to the add line button
+		document.getElementById("addButton").addEventListener("click", addDiv);
+	}
+	
+	//function for adding the div
+	function addDiv()
+	{
+		//create a variable for the new div
+		const newDiv =  document.createElement("div");
+		
+		//grab the user text from the text field
+		text = document.getElementById("theText").value;
+		//grab the values of the radio buttons - comes in a nodeList
+		colors = document.getElementsByName("color");
+		
+		//iterate over the list to get the checked one
+		for(let value of colors)
+		{
+			if(value.checked === true)
+			{
+				chosenColor = value.value;
+				console.log(chosenColor);
+			}
+		}
+		
+		//create a new text node
+		const divText = document.createTextNode(text);
+		
+		//add text node to the div
+		newDiv.appendChild(divText);
+		
+		//add the div to the color class chosen
+		newDiv.classList.add(chosenColor);
+		
+		//add the new div to the document
+		document.body.appendChild(newDiv);
+	}
+	
+	
+	window.addEventListener("load", start);
 	// End your code
 </script>
 </head>
