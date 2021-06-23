@@ -33,6 +33,27 @@ class Graph():
 		'''
 		file_path is the path to the 04_graph.txt file
 		'''
+		#open the file with a reader
+		file = open(file_path, "r")
+		
+		#create an empty dict to start
+		self.dict = {};
+		
+		#loop over the file and populate dict
+		for line in file:
+			line = line.strip()
+			#print(line.strip())
+			pair = line.split(';')
+			#print(pair)
+			#if the key value already exists, add a space and the next value
+			if pair[0] in self.dict:
+				self.dict[pair[0]] = (self.dict.get(pair[0]) + " " + pair[1])
+			#if the key does not exist, add it and assign the corresponding value
+			else: 
+				self.dict[pair[0]] = pair[1]
+				
+			
+		print(self.dict)
 		pass
 
 
@@ -68,7 +89,7 @@ class Graph():
 
 
 if __name__ == "__main__":
-	filePath = "" # enter input file path here
+	filePath = "04_graph.txt" # enter input file path here
 	g = Graph(filePath)
 
 	print("---------Testing __str__ ---------")
