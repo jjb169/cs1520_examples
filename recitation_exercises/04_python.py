@@ -37,7 +37,7 @@ class Graph():
 		file = open(file_path, "r")
 		
 		#create an empty dict to start
-		self.dict = {};
+		self.dict = {}
 		
 		#loop over the file and populate dict
 		for line in file:
@@ -47,13 +47,24 @@ class Graph():
 			#print(pair)
 			#if the key value already exists, add a space and the next value
 			if pair[0] in self.dict:
-				self.dict[pair[0]] = (self.dict.get(pair[0]) + " " + pair[1])
+				self.dict[pair[0]].append(pair[1])
+				#sort the new array
+				self.dict[pair[0]].sort()
 			#if the key does not exist, add it and assign the corresponding value
 			else: 
-				self.dict[pair[0]] = pair[1]
+				self.dict[pair[0]] = [pair[1]]
+				
+			#if the key value already exists, add a space and the next value
+			if pair[1] in self.dict:
+				self.dict[pair[1]].append(pair[0])
+				#sort the new array
+				self.dict[pair[1]].sort()
+			#if the key does not exist, add it and assign the corresponding value
+			else: 
+				self.dict[pair[1]] = [pair[0]]	
 				
 			
-		print(self.dict)
+		#print(self.dict)
 		pass
 
 
@@ -64,7 +75,30 @@ class Graph():
 		also appear in sorted order. Try doing this using list 
 		comprehension and lambda expressions.
 		'''
-		pass
+		list_of_tups = sorted(self.dict.items(), key=lambda t: t[0])
+		
+		#print(type(list_of_tups))
+		
+		printOut = "{\n"
+		for i in list_of_tups:
+			#print(i)
+			printOut = printOut + "('" + i[0] + "', ["
+			x = 0
+			for j in i[1]:
+				printOut = printOut + "'" + j + "'"
+				#print(f"x = {x}, len = {len(i[1])}")
+				if (x+1) < len(i[1]):
+					printOut = printOut + ", "
+				x = x + 1
+			
+			printOut = printOut + "])\n"
+					
+		printOut = printOut + "}"
+			#printOut = "\n".join(i)
+
+		#print(printOut)
+
+		return printOut
 
 	def __iter__(self):
 		'''
