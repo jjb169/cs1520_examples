@@ -7,13 +7,20 @@
 		const ex = [];
 		
 		const funcMaker = (i) => {
-			return () => { console.log(i); };
+			return () => { 
+				console.log(i);
+				i += 1;
+			};
 		};
 
 		for (var i = 0; i < 5; i++) {
 			ex[i] = funcMaker(i)
 		}
 
+		for (var j = 0; j < 5; j++) {
+			ex[j]();
+		}
+		console.log("");
 		for (var j = 0; j < 5; j++) {
 			ex[j]();
 		}
