@@ -170,6 +170,29 @@ def largest_area():
 (6) find and print the percentage of area covered by forests in all states (hint: use func.sum)
 '''
 
+""" THIS IS THE SOLUTION """
+
+# Run all queries
+@app.cli.command('check')
+def default():
+    print('\n--- Q1 ---')
+    result = Forest.query.filter_by(area=db.session.query(func.max(Forest.area)).one()[0]).one()
+    print(result)
+​
+    print('\n--- Q2 ---')
+    results = db.session.query(Coverage, Forest).filter(Forest.forest_no==Coverage.forest_no, Coverage.state_name=="PA")
+    for row in results:
+        print(row[1])
+​
+    print('\n--- Q3 ---')
+    results = db.session.query(Coverage.state_name, func.count(Coverage.forest_no).label('forests_count')).group_by(Coverage.state_name).order_by(desc('forests_count'))
+    for row in results:
+        print(row)
+​
+    print('\n--- Q4 ---')
+    results = db.session.query(Coverage.state_name, func.sum(cast(Coverage.area, db.Float)) * 100.0 / State.area).filter(State.state_name==Coverage.state_name).group_by(Coverage.state_name)
+    for row in results:
+        print(row)
 
 
 
