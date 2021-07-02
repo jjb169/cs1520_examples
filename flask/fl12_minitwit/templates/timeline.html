@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
+
+
 {% block title %}
   {% if request.endpoint == 'public_timeline' %}
     Public Timeline
@@ -8,8 +10,12 @@
     My Timeline
   {% endif %}
 {% endblock %}
+
+
 {% block body %}
+
   <h2>{{ self.title() }}</h2>
+  
   {% if g.user %}
     {% if request.endpoint == 'user_timeline' %}
       <div class="followstatus">
@@ -33,6 +39,8 @@
       </div>
     {% endif %}
   {% endif %}
+  
+  
   <ul class="messages">
   {% for message in messages %}
     <li><img src="{{ message.author.email|gravatar(size=48) }}"><p>
@@ -43,4 +51,6 @@
     <li><em>There's no message so far.</em>
   {% endfor %}
   </ul>
+  
+  
 {% endblock %}
