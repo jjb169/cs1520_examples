@@ -2,21 +2,21 @@
 <html>
 <head>
 <title>Functional Example</title>
-<script type="text/javascript" src="js22_imp.js"></script>
+<script type="text/javascript" src="js22_proc.js"></script>
+<script type="text/javascript" src="js22_rec.js"></script>
 <script type="text/javascript" src="js22_func.js"></script>
-<script type="text/javascript" src="js22_func_mr.js"></script>
 <script type="text/javascript">
 	function main() {
 		const data = [{"name": "Crosby", "age": 28, "points": [0, 0, 0, 1, 1, 0]}, { "name": "Malkin", "age": 29, "points": [1, 1, 0, 0, 0, 0]}, {"name": "Letang", "age": 29, "points": [1, 0, 1, 0, 1]}];
 
-		console.log("Imperative result:");
-		imp_main(data);
+		console.log("Procedural result:");
+		proc_main(data);
 
-		console.log("\nFunctional result:");
-		func_main(data);
+		console.log("\nRecursive result:");
+		rec_main(data);
 
 		console.log("\nFunctional result (using map and reduce):");
-		func_mr_main(data);
+		func_main(data);
 	}
 
 	window.addEventListener("load", main);
