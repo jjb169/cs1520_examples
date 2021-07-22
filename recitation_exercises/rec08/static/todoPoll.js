@@ -8,14 +8,12 @@ function setup() {
 
 function makePost() {
 	console.log("Sending POST request");
-	const one = document.getElementById("a").value
-	const two = document.getElementById("b").value
-	const three = document.getElementById("c").value
+	const name = document.getElementById("todo_name").value
 	
-	fetch("/new_item", {
+	fetch("/todos", {
 			method: "post",
-			headers: { "Content-type": "application/x-www-form-urlencoded; charset=UTF-8" },
-			body: `one=${one}&two=${two}&three=${three}`
+			headers: { "Content-type": "application/json" },
+			body: JSON.stringify({task : name})
 		})
 		.then((response) => {
 			return response.json();
@@ -31,9 +29,8 @@ function makePost() {
 
 function poller() {
 	console.log("Polling for new items");
-	fetch("/items")
+	fetch("/todos")
 		.then((response) => {
-			console.log(response.json());
 			return response.json();
 		})
 		.then(updateTable)
@@ -43,15 +40,19 @@ function poller() {
 }
 
 function updateTable(result) {
-	console.log(result);
 	console.log("Updating the table");
+	const info = JSON.parse(result);
+	console.log(info);
 	const tab = document.getElementById("theTable");
 	while (tab.rows.length > 0) {
 		tab.deleteRow(0);
+		console.log("deleted row");
 	}
 	
-	for (var i = 0; i < result.length; i++) {
-		addRow(result[i]);
+	for (let i in info) {
+		console.log("going to add row");
+		addRow(i);
+		console.log("added row");
 	}
 	
 	timeoutID = window.setTimeout(poller, timeout);
@@ -61,11 +62,14 @@ function addRow(row) {
 	const tableRef = document.getElementById("theTable");
 	const newRow = tableRef.insertRow();
 
-	for (var i = 0; i < row.length; i++) {
-		const newCell = newRow.insertCell();
-		const newText = document.createTextNode(row[i]);
-		newCell.appendChild(newText);
-	}
+	const newCellOne = newRow.insertCell();
+	const newTextOne = document.createTextNode(row);
+	newCellOne.appendChild(newTextOne);
+	
+	const newCellTwo = newRow.insertCell();
+	const newTextTwo = document.createTextNode(row[newTextOne]);
+	newCellTwo.appendChild(newTextTwo);
+	
 }
 
 function clearInput() {

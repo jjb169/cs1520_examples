@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from werkzeug.exceptions import abort
 
 app = Flask(__name__)
@@ -16,8 +16,9 @@ def abort_if_todo_doesnt_exist(todo_id):
 
 
 #default route to the page
-@app.route("/", methods=["GET, POST"])
-
+@app.route("/")
+def default():
+	return render_template("todos.html", todos=TODOS)
 
 
 # RESTful access to the list of todos
